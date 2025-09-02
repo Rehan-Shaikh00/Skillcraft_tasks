@@ -1,36 +1,29 @@
-📄 Report (task02_report.md)
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-Task 02 – Data Cleaning & Exploratory Data Analysis (EDA)
+# Load dataset
+data = pd.read_csv("train.csv")
 
-Dataset: Titanic (Kaggle)
+# Survival by Gender
+plt.figure(figsize=(6, 4))
+sns.countplot(x="Sex", hue="Survived", data=data, palette="Set2")
+plt.title("Survival Count by Gender")
+plt.savefig("survival_by_gender.png")   # Save chart as PNG
+plt.close()
 
-Tools: Python, Pandas, Seaborn, Matplotlib
+# Survival by Passenger Class
+plt.figure(figsize=(6, 4))
+sns.countplot(x="Pclass", hue="Survived", data=data, palette="Set1")
+plt.title("Survival Count by Passenger Class")
+plt.savefig("survival_by_class.png")
+plt.close()
 
-Process:
+# Age Distribution
+plt.figure(figsize=(6, 4))
+sns.histplot(data["Age"].dropna(), bins=30, kde=True, color="skyblue")
+plt.title("Age Distribution of Passengers")
+plt.savefig("age_distribution.png")
+plt.close()
 
-Cleaned missing values in Age & Embarked
-
-Dropped irrelevant columns (Name, Ticket, Cabin)
-
-Encoded categorical features (Sex, Embarked)
-
-Performed exploratory analysis with plots
-
-
-Key Insights:
-
-1. Female passengers had higher survival rates than males.
-
-
-2. 1st Class passengers were more likely to survive.
-
-
-3. Age influenced survival (children had better chances).
-
-
-4. Port of embarkation also showed variation in survival rates.
-
-
-
-
-📌 Conclusion: Gender, Class, and Age were strong indicators of survival.
+print("✅ Charts saved as 'survival_by_gender.png', 'survival_by_class.png', and 'age_distribution.png'")
